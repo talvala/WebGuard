@@ -1,3 +1,5 @@
+//set the level of protection - save it into Chrome Storage
+
 window.onload = function() {
     document.getElementById("buttons").onclick = function fun() {
   
@@ -13,14 +15,12 @@ window.onload = function() {
     console.log("high");
     chrome.storage.sync.set({"status": "high"});
   }
-  if (!document.getElementById("status_high").checked && !document.getElementById("status_medium").checked && !document.getElementById("status_none").checked) {
-    chrome.storage.sync.set({"status": "high"});
-  }
 }
 
 
 }
 
+//check what the user has chosen 
 
 chrome.storage.sync.get(['status'], function(status) {
   var data = status.status;
@@ -33,7 +33,10 @@ chrome.storage.sync.get(['status'], function(status) {
   if (data == "high"){
     document.getElementById("status_high").checked = true;
   }
-  if (data === "undefined") {
+
+  //use high protection as default
+
+  if (data == "undefined")  {
     document.getElementById("status_high").checked = true;
   }
 });
